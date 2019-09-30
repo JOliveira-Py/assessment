@@ -1,28 +1,28 @@
-def top3(lista):
-    listaInt = [int(i) for i in lista]
-    listaInt.sort(reverse=True)
-    return str(listaInt[0:3])
+def top3(list):
+    intList = [int(i) for i in list]
+    intList.sort(reverse=True)
+    return str(intList[0:3])
 
-#sem utilizar a função 'sort'
-def top1(lista):
-    aux = int(lista[0])
-    for i in lista:
+#without using 'list.sort' method
+def top1(list):
+    aux = int(list[0])
+    for i in list:
         if int(i) > int(aux):
             aux = i
     return aux
     
 
-listaPontuacoes = []
+scoresList = []
 
 while True:
-    print('Introduza a ' + str(len(listaPontuacoes)+1) + 'ª pontuação (ou deixe em branco para terminar)')
-    pontuacao = input()
-    if pontuacao == '':
+    print('Insert score nr ' + str(len(scoresList)+1) + ': (or leave it blank to finish)')
+    score = input()
+    if score == '':
         break
     else:
-        listaPontuacoes = listaPontuacoes + [pontuacao]
+        scoresList = scoresList + [score]
     
-print("Pontuação mais alta:\n" + str(top1(listaPontuacoes)) + "\n")
-print("Top3:\n" + top3(listaPontuacoes) + "\n")
-print("Última pontuação inserida:\n" + listaPontuacoes[-1])
+print("Top Score:\n" + str(top1(scoresList)) + "\n")
+print("Top3:\n" + top3(scoresList) + "\n")
+print("Last score inserted:\n" + scoresList[-1])
 
