@@ -44,5 +44,5 @@ data.append({
     'max_version': 1.3
 })
 
-with open('data.txt', 'w') as outfile:
+with open('mail_03Oct19\data.txt', 'w') as outfile:
     json.dump(data, outfile)

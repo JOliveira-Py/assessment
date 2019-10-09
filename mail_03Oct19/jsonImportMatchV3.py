@@ -1,6 +1,6 @@
 import json
 
-def matchMachines(userFile='data.txt'):
+def matchMachines(userFile='mail_03Oct19\data.txt'):
     with open(userFile) as json_file:
         data = json.load(json_file)
 
@@ -55,7 +55,7 @@ def matchMachines(userFile='data.txt'):
 file = input('Insert file "path\\name.ext" (leave blank for default "data.txt"): ')
 
 if file:
-    matches = matchMachines(file)
+    matches = matchMachines('mail_03Oct19\\'+file)
 else:
     matches = matchMachines()
 for i in matches:
