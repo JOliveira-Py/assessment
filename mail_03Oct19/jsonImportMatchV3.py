@@ -25,8 +25,18 @@ def matchMachines(userFile='data.txt'):
                     (minV <= data[comparison]['min_version'] <= maxV)
                     or (minV <= data[comparison]['max_version'] <= maxV))
                 if data[comparison]['color'] == color and intersects:
+                    checkAllGroup = True
+                    # Check if machine in comparison is version compatible with all machines previsously grouped
+                    for k in data:
+                        if k['name'] in newGroup:
+                            intersectsAlso = (
+                                (data[comparison]['min_version'] <= k['min_version'] <= data[comparison]['max_version'])
+                                or (data[comparison]['min_version'] <= k['max_version'] <= data[comparison]['max_version']))
+                            if not intersectsAlso:
+                                checkAllGroup = False
                     # Add new machine to matching machines
-                    newGroup += ' ' + data[comparison]['name']
+                    if checkAllGroup:
+                        newGroup += ' ' + data[comparison]['name']
             # Store new group of matching machines
             groups.append(newGroup)
     return groups
