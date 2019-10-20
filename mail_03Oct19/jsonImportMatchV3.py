@@ -1,6 +1,8 @@
+#!/usr/bin/python3.6m
+
 import json
 
-def matchMachines(userFile='mail_03Oct19\data.txt'):
+def matchMachines(userFile='data.txt'):
     with open(userFile) as json_file:
         data = json.load(json_file)
 
@@ -22,14 +24,12 @@ def matchMachines(userFile='mail_03Oct19\data.txt'):
             newGroup = data[machine]['name']
             for comparison in range(machine+1,len(data)):
                 added = False
-                for k in groups:
-                    if data[comparison]['name'] in k:
-                        added = True
-                        break
                 if not added:
                     intersects = (
                         (minV <= data[comparison]['min_version'] <= maxV)
-                        or (minV <= data[comparison]['max_version'] <= maxV))
+                        or (minV <= data[comparison]['max_version'] <= maxV)
+                        or (data[comparison]['min_version'] <= minV <= data[comparison]['max_version'])
+                        or (data[comparison]['min_version'] <= maxV <= data[comparison]['max_version']))
                     if data[comparison]['color'] == color and intersects:
                         checkAllGroup = True
                         # Store info about 'comparison' machine
@@ -41,7 +41,9 @@ def matchMachines(userFile='mail_03Oct19\data.txt'):
                             if m['name'] in newGroup:
                                 intersectsAlso = (
                                     (minV2 <= m['min_version'] <= maxV2)
-                                    or (minV2 <= m['max_version'] <= maxV2))
+                                    or (minV2 <= m['max_version'] <= maxV2)
+                                    or (m['min_version'] <= minV2 <= m['max_version'])
+                                    or (m['min_version'] <= maxV2 <= m['max_version']))
                                 if not intersectsAlso:
                                     checkAllGroup = False
                                     break
@@ -55,7 +57,7 @@ def matchMachines(userFile='mail_03Oct19\data.txt'):
 file = input('Insert file "path\\name.ext" (leave blank for default "data.txt"): ')
 
 if file:
-    matches = matchMachines('mail_03Oct19\\'+file)
+    matches = matchMachines(file)
 else:
     matches = matchMachines()
 for i in matches:
