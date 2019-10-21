@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6m
+#!/usr/bin/python3.6
 
 import json
 
