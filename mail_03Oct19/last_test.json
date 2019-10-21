@@ -1,0 +1,56 @@
+[
+    {
+        "name": "first",
+        "color": "red",
+        "min_version": 1.1,
+        "max_version": 2.2
+    },
+    {
+        "name": "second",
+        "color": "blue",
+        "min_version": 1.0,
+        "max_version": 1.1
+    },
+    {
+        "name": "third",
+        "color": "red",
+        "min_version": 1.5,
+        "max_version": 1.6
+    },
+    {
+        "name": "fourth",
+        "color": "red",
+        "min_version": 1.1,
+        "max_version": 1.4
+    },
+    {
+        "name": "fifth",
+        "color": "green",
+        "min_version": 1.2,
+        "max_version": 1.3
+    },
+    {
+        "name": "sixth",
+        "color": "red",
+        "min_version": 2.0,
+        "max_version": 2.1
+    },
+    {
+        "name": "seventh",
+        "color": "green",
+        "min_version": 1.2,
+        "max_version": 1.3
+    },
+    {
+        "name": "eigth",
+        "color": "green",
+        "min_version": 1.1,
+        "max_version": 1.3
+    },
+    {
+        "name": "ninth",
+        "color": "green",
+        "min_version": 1.1,
+        "max_version": 1.1
+    }
+]
