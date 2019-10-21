@@ -1,13 +1,17 @@
 #!/usr/bin/python3.6
 
 import json
+from pathlib import Path
 
-def matchMachines(userFile='data.txt'):
-    with open(userFile) as json_file:
-        data = json.load(json_file)
+def intersects(a,b,c,d):
+    return ((a <= c <= b)
+            or (a <= d <= b)
+            or (c <= a <= d)
+            or (c <= b <= d))
 
+def matchMachines(data):
     groups = []
-
+    
     for machine in range(len(data)):
         add = True
         # Check if 'machine' was already matched
@@ -29,26 +33,18 @@ def matchMachines(userFile='data.txt'):
                         added = True
                         break
                 if not added:
-                    intersects = (
-                        (minV <= data[comparison]['min_version'] <= maxV)
-                        or (minV <= data[comparison]['max_version'] <= maxV)
-                        or (data[comparison]['min_version'] <= minV <= data[comparison]['max_version'])
-                        or (data[comparison]['min_version'] <= maxV <= data[comparison]['max_version']))
-                    if data[comparison]['color'] == color and intersects:
+                    # Store info about 'comparison' machine
+                    minV2 = data[comparison]['min_version']
+                    maxV2 = data[comparison]['max_version']
+                    if data[comparison]['color'] == color and intersects(minV,maxV,minV2,maxV2):
                         checkAllGroup = True
-                        # Store info about 'comparison' machine
-                        minV2 = data[comparison]['min_version']
-                        maxV2 = data[comparison]['max_version']
                         # Check if 'comparison' machine is version compatible with all
                         # machines previously added to current 'newGroup'
                         for m in data:
                             if m['name'] in newGroup:
-                                intersectsAlso = (
-                                    (minV2 <= m['min_version'] <= maxV2)
-                                    or (minV2 <= m['max_version'] <= maxV2)
-                                    or (m['min_version'] <= minV2 <= m['max_version'])
-                                    or (m['min_version'] <= maxV2 <= m['max_version']))
-                                if not intersectsAlso:
+                                minV3 = m['min_version']
+                                maxV3 = m['max_version']
+                                if not intersects(minV2,maxV2,minV3,maxV3):
                                     checkAllGroup = False
                                     break
                         # Add 'comparison' machine to matching machines 'newGroup'
@@ -58,11 +54,12 @@ def matchMachines(userFile='data.txt'):
             groups.append(newGroup)
     return groups
 
-file = input('Insert file "path\\name.ext" (leave blank for default "data.txt"): ')
+file = input('Insert file "folder/file.ext" (leave blank for default "last_test.json"): ')
 
-if file:
-    matches = matchMachines(file)
-else:
-    matches = matchMachines()
+if not file:
+    file = Path('data.txt')
+with open(file) as json_file:
+        fileData = json.load(json_file)
+matches = matchMachines(fileData)
 for i in matches:
     print(i)
