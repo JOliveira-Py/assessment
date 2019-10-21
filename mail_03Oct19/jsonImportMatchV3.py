@@ -24,6 +24,10 @@ def matchMachines(userFile='data.txt'):
             newGroup = data[machine]['name']
             for comparison in range(machine+1,len(data)):
                 added = False
+                for k in groups:
+                    if data[comparison]['name'] in k:
+                        added = True
+                        break
                 if not added:
                     intersects = (
                         (minV <= data[comparison]['min_version'] <= maxV)
